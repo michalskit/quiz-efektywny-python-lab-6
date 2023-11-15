@@ -41,18 +41,18 @@ class TestQuiz(unittest.TestCase):
             return execution_time
 
         # First call should compute the result
-        _, exec_time_first_call = cached_heavy_computation(10000)
+        exec_time_first_call = cached_heavy_computation(10000)
         self.assertGreater(exec_time_first_call, 0, "Execution time should be non-zero for first call")
 
         # Second call should retrieve the result from cache, hence expected to be faster or equal
-        _, exec_time_second_call = cached_heavy_computation(10000)
+        exec_time_second_call = cached_heavy_computation(10000)
         self.assertLessEqual(exec_time_second_call, exec_time_first_call, "Execution time should be less or equal for cached call")
 
         # Sleep to expire the cache
         time.sleep(5)
 
         # Third call after cache expiration, times should be almost equal
-        _, exec_time_third_call = cached_heavy_computation(10000)
+        exec_time_third_call = cached_heavy_computation(10000)
         self.assertAlmostEqual(exec_time_third_call, exec_time_first_call, delta=1)
 
 
